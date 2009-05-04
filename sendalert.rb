@@ -7,7 +7,7 @@ def self.alert(from, to, msg)
 from = from
 to = to
 msg = msg
- smtp = Net::SMTP.start('smtp.gmail.com', 25, 'gmail.com', from, 'kilarivamsikrishna123', :login)
+ smtp = Net::SMTP.start('smtp.gmail.com', 25, 'gmail.com', from, 'password', :login)
         smtp.send_message msg, from, to
         smtp.finish
 
