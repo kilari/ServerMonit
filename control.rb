@@ -1,4 +1,4 @@
 require 'rubygems'
 require 'daemons'
 
-Daemons.run('main.rb')
+Daemons.run('ping1.rb')

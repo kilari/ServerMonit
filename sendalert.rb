@@ -3,26 +3,43 @@ require 'net/smtp'
 
 module SendAlert
 
-	def self.downalert(to="vamsikilari@gmail.com", host='rptest.railsplayground.net')
-	@to = to
-	@host = host
+def self.alert(from, to, msg)
+from = from
+to = to
+msg = msg
+ smtp = Net::SMTP.start('smtp.gmail.com', 25, 'gmail.com', from, 'kilarivamsikrishna123', :login)
+        smtp.send_message msg, from, to
+        smtp.finish
+
+end
+
+	def self.downalert(host='rptest.railsplayground.net', to="vamsikilari@gmail.com")
+	to = to
+	host = host
 	@time = Time.gm(*Time.now.to_a)
 	msgstr = <<_END_OF_MESSAGE
 	From: ALERT <vpsdownalert@gmail.com>     
-	
 	TO: #{@to}
 	Subject: Down Alert
 
 	#{host} IS DOWN from #{@time} 
 _END_OF_MESSAGE
-        smtp = Net::SMTP.start('smtp.gmail.com', 25, 'gmail.com', 'vpsdownalert@gmail.com', 'kilarivamsikrishna123', :login)
-        smtp.send_message msgstr, 'vpsdownalert@gmail.com', @to
-        puts "Alert sent"
-	smtp.finish
+SendAlert.alert("vpsdownalert@gmail.com", to, msgstr)
 
 	end
 
-	def upalert
+	def self.upalert(host='rptest.railsplayground.net', to="vamsikilari@gmail.com")
+	to = to 
+	host = host
+        time = Time.gm(*Time.now.to_a)
+        msgstr = <<_END_OF_MESSAGE
+        From: UPALERT <vpsupalert@gmail.com>     
+        TO: #{@to}
+        Subject: UP Alert
+
+        #{host} IS UP at #{@time} 
+_END_OF_MESSAGE
+	SendAlert.alert('vpsupalert@gmail.com', to, msgstr)
 	end
 
 end
