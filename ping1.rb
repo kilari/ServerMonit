@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'net/ping'
-require '/home/kilari/work/ruby/vpswork/sendalert'
+require File.dirname(__FILE__) + "/sendalert"
 module DataMod
 class FetchDataClass
 	

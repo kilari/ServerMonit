@@ -1,6 +1,6 @@
-require '/home/kilari/work/ruby/vpswork/smtp-tls'
 require 'net/smtp'
 require 'resolv'
+require File.dirname(__FILE__) + "/smtp-tls"
 module SendAlert
 
 class SendMail
