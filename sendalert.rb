@@ -15,7 +15,11 @@ class SendMail
 
 	def self.downalert(host='rptest.railsplayground.net', to="vamsikilari@gmail.com")
 	to = to
+	begin
 	host = Resolv.getname(host)
+	rescue
+	host = host
+	end
 	@time = Time.gm(*Time.now.to_a)
 	msgstr = <<_END_OF_MESSAGE
 	From: ALERT <vpsdownalert@gmail.com>     
@@ -30,8 +34,12 @@ SendMail.alert("vpsdownalert@gmail.com", to, msgstr)
 
 	def self.upalert(host='rptest.railsplayground.net', to="vamsikilari@gmail.com")
 	to = to 
+	begin
 	host = Resolv.getname(host)
-        time = Time.gm(*Time.now.to_a)
+        rescue
+	host = host 
+	end
+	time = Time.gm(*Time.now.to_a)
         msgstr = <<_END_OF_MESSAGE
         From: UPALERT <vpsupalert@gmail.com>     
         TO: #{@to}
