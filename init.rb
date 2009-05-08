@@ -1,15 +1,26 @@
-require '/home/kilari/work/ruby/vpswork/ping1'
+require File.dirname(__FILE__) + '/ping1'
 
 module InitModd
 class InitClass
 
-	def init
-	DataMod::DataInitClass.new.init
+	def initialize
+	@obj = DataMod::DataInitClass.new
 	end
 	
+	def pulldata
+	@obj.storetopool
+	end
+	
+	def start
+	@obj.init
+	end
 end
+
+check = InitClass.new
+check.pulldata
+
 loop do
-InitClass.new.init
+check.start
 sleep 45
 end
 end
