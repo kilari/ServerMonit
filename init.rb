@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/ping1'
+require File.dirname(__FILE__) + '/lib/ping1'
 
 module InitModd
 class InitClass
@@ -21,6 +21,6 @@ check.pulldata
 
 loop do
 check.start
-sleep 45
+sleep 60
 end
 end
