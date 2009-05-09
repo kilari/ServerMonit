@@ -16,19 +16,19 @@ class SendMail
 
         def self.downalert(host='rptest.railsplayground.net', to="vamsikilari@gmail.com",starttime = Time.now)
         to = to
-        begin
+        ip = host
+	begin
         host = Resolv.getname(host)
         rescue
         host = host
         end
-        time = Time.gm(*Time.now.to_a)
         $downtime["#{host}"] = starttime unless $downtime.has_key?("#{host}")
 	msgstr = <<_END_OF_MESSAGE
         From: ALERT <vpsdownalert@gmail.com>,
         TO: #{to}
         Subject: Down Alert
 
-        #{host} IS DOWN from #{time}
+        #{host}(#{ip}) is DOWN from #{$downtime["#{host}"]}
 _END_OF_MESSAGE
         SendMail.alert("vpsdownalert@gmail.com", to, msgstr)
         end
