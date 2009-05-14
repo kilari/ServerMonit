@@ -1,0 +1,10 @@
+ServerMonit
++++++++++++
+Application which can  monitor services running on remote ports.If any of the service is down it will send a mail and again send a mail if the service is back.
+
+Usage: Need to mention the IP of the server on which the services need to be monitored in the "data" file in the "config" folder. You can start|restart|stop the daemon using "ruby control.rb start|restart|stop"
+
+
+
+
+Copyright (c) 2009 Kilari Vamsi Krishna
