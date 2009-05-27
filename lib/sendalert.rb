@@ -3,18 +3,17 @@ require 'resolv'
 require File.dirname(__FILE__) + "/smtp-tls"
 module SendAlert
 
-class SendMail
 	$downtime = Hash.new
-        def self.alert(from, to, msg)
+        def alert(from, to, msg)
         from = from
         to = to
         msg = msg
-        smtp = Net::SMTP.start('smtp.gmail.com', 25, 'gmail.com', from, 'kilarivamsikrishna123', :login)
+        smtp = Net::SMTP.start('smtp.gmail.com', 25, 'gmail.com', from, '*****', :login)
         smtp.send_message msg, from, to
         smtp.finish
         end
 
-        def self.downalert(host='rptest.railsplayground.net',starttime = Time.now, to="vamsikilari@gmail.com")
+        def downalert(host='rptest.railsplayground.net',starttime = Time.now, to="vamsikilari@gmail.com")
         to = to
         ip = host
 	begin
@@ -30,18 +29,17 @@ class SendMail
 
         #{host}(#{ip}) is DOWN from #{$downtime["#{host}"]}
 _END_OF_MESSAGE
-        SendMail.alert("vpsdownalert@gmail.com", to, msgstr)
-        end
+        alert("vpsdownalert@gmail.com", to, msgstr)
+	end
 
-        def self.upalert(host='rptest.railsplayground.net',stoptime = Time.now, to="vamsikilari@gmail.com")
+        def upalert(host='rptest.railsplayground.net',stoptime = Time.now, to="vamsikilari@gmail.com")
         to = to
         begin
         host = Resolv.getname(host)
         rescue
         host = host
         end
-	#stoptime = Time.now
-	uptime = ((SendMail.caltime(host, stoptime))/60).to_i
+	uptime = ((caltime(host, stoptime))/60).to_i
         $downtime.delete("#{host}")
 	time = Time.gm(*Time.now.to_a)
         msgstr = <<_END_OF_MESSAGE
@@ -51,15 +49,11 @@ _END_OF_MESSAGE
 
         #{host} IS UP at #{time} after #{uptime} minutes of downtime
 _END_OF_MESSAGE
-        SendMail.alert('vpsupalert@gmail.com', to, msgstr)
+        alert('vpsupalert@gmail.com', to, msgstr)
         end
 
-	def self.caltime(host, stoptime = Time.now)
+	def caltime(host, stoptime = Time.now)
 	stoptime - $downtime["#{host}"]  
 	end
-	def self.showhash
-	$downtime.each { |key, value| puts "#{key} => #{value}"}  
-	end 
-end
 end
 

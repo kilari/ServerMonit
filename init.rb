@@ -1,18 +1,14 @@
 require File.dirname(__FILE__) + '/lib/ping1'
 
-module InitModd
 class InitClass
+include DataMod
 
-	def initialize
-	@obj = DataMod::DataInitClass.new
-	end
-	
 	def pulldata
-	@obj.storetopool
+	fetch
 	end
 	
 	def start
-	@obj.init
+	init
 	end
 end
 
@@ -22,5 +18,4 @@ check.pulldata
 loop do
 check.start
 sleep 60
-end
 end
