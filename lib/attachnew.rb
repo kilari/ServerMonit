@@ -23,7 +23,7 @@ Content-Disposition: attachment; filename="#{filename}"
 EOF
 begin 
   Net::SMTP.start('smtp.gmail.com', 25, 'gmail.com', 'vpsupalert@gmail.com', '*********', :login) do |smtp|
-smtp.sendmail(mail, 'vpsupalert@gmail.com',['vamsikilari@kilari.co.in']) 
+smtp.send_message(mail, 'vpsupalert@gmail.com','vamsikilari@kilari.co.in')
  end
 rescue 
 end 
